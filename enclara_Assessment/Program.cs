@@ -40,16 +40,16 @@ namespace enclara_Assessment
                         Console.Write("User input: ");
                         input = Console.ReadLine();
                         //Number of palindrome words
-                        numPalindromeWords = getNumOfPalindromeWords(input);
+                        numPalindromeWords = GetNumOfPalindromeWords(input);
                         Console.WriteLine("Number of palindrome words: {0}", numPalindromeWords);
 
                         //Number of palindrome sentences
-                        string[] sentences = createInputSentences(input);
-                        count = getNumOfPalindromeSentences(sentences);
+                        string[] sentences = CreateInputSentences(input);
+                        count = GetNumOfPalindromeSentences(sentences);
                         Console.WriteLine("Number of palindrome sentences: " + count);
 
                         //List of Unique words:
-                        int numOfUniqueWords = getCountUniqeWords(input);
+                        int numOfUniqueWords = GetCountUniqeWords(input);
 
 
 
@@ -69,7 +69,7 @@ namespace enclara_Assessment
                             else
                             {
                                 //gets words that contain the letter entered by the user
-                                words = getWordscontainingChar(Convert.ToChar(t), input);
+                                words = GetWordscontainingChar(Convert.ToChar(t), input);
                                 if (words.Count > 0)
                                 {
                                     Console.WriteLine("Words containing \'" + t + "\': ");
@@ -106,7 +106,7 @@ namespace enclara_Assessment
             }
             while (x != 3);
         }
-        public static List<string> getEachWords(string input)
+        public static List<string> GetEachWords(string input)
         {
             List<string> words = new List<string>();
             input = input + " ";
@@ -119,7 +119,7 @@ namespace enclara_Assessment
                 //Getting all the words
                 if (ch != ' ' && ch != '.' && ch != ',' && ch != ':' && ch != ';')
                 {
-                    word = word + ch;
+                    word += ch;
                 }
                 else
                 {
@@ -133,7 +133,7 @@ namespace enclara_Assessment
         }
 
         //method to check for palindrome
-        public static bool checkPalindrome(string word)
+        public static bool CheckPalindrome(string word)
         {
             int num = word.Length;
             word = word.ToLower();
@@ -148,15 +148,15 @@ namespace enclara_Assessment
         }
 
         // Method to count palindrome words  
-        public static int getNumOfPalindromeWords(string input)
+        public static int GetNumOfPalindromeWords(string input)
         {
             int count = 0;
             List<string> words = new List<string>();
-            words = getEachWords(input);
+            words = GetEachWords(input);
             //Checks to see if the word is a palindrome
             foreach (var word in words)
             {
-                if (!String.IsNullOrEmpty(word) && checkPalindrome(word))
+                if (!String.IsNullOrEmpty(word) && CheckPalindrome(word))
                 {
                     count++;
                 }
@@ -164,7 +164,7 @@ namespace enclara_Assessment
             return count;
         }
         //method to separate each sentences from paragraph.
-        public static string[] createInputSentences(string input)
+        public static string[] CreateInputSentences(string input)
         {
             char[] endings = { '.', '!', '?' };
 
@@ -173,7 +173,7 @@ namespace enclara_Assessment
             return sentences;
         }
         //Retruns the number of palindrome sentences 
-        public static int getNumOfPalindromeSentences(string[] sentences)
+        public static int GetNumOfPalindromeSentences(string[] sentences)
         {
             string str;
             int count = 0;
@@ -181,7 +181,7 @@ namespace enclara_Assessment
             {
                 str = Regex.Replace(sentence, @"[^\w\d\s]", "");
                 str = str.Replace(" ", "");
-                if (!String.IsNullOrEmpty(str) && checkPalindrome(str))
+                if (!String.IsNullOrEmpty(str) && CheckPalindrome(str))
                 {
                     count++;
                 }
@@ -190,12 +190,12 @@ namespace enclara_Assessment
         }
 
         //returns the words that have the letter entered by the user within it.
-        public static List<string> getWordscontainingChar(char c, string input)
+        public static List<string> GetWordscontainingChar(char c, string input)
         {
             List<string> x = new List<string>();
             List<string> words = new List<string>();
 
-            x = getEachWords(input);
+            x = GetEachWords(input);
             foreach (var word in x)
             {
                 if (word.Contains(char.ToString(c)))
@@ -208,9 +208,9 @@ namespace enclara_Assessment
         }
 
         //counts each unique words
-        public static int getCountUniqeWords(string input)
+        public static int GetCountUniqeWords(string input)
         {
-            IEnumerable<string> words = getEachWords(input);
+            IEnumerable<string> words = GetEachWords(input);
             IEnumerable<string> uniqueWords = words.GroupBy(w => w).Where(g => g.Count() == 1).Select(g => g.Key);
             return uniqueWords.Count();
         }
